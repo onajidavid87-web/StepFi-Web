@@ -18,7 +18,7 @@ const features = [
   {
     icon: TrendingUp,
     title: 'Build Reputation',
-    desc: 'Every on-time payment improves your on-chain credit score.',
+    desc: 'Pay on time and your on-chain credit score climbs. Fall behind and it drops.',
   },
   {
     icon: Users,
@@ -59,8 +59,9 @@ export function Home() {
         <p className="text-text-secondary text-lg md:text-xl
           max-w-2xl mx-auto mb-10">
           StepFi is an open-source BNPL protocol on Stellar.
-          Finance laptops, courses, and dev tools.
-          Repay in installments. Build your on-chain reputation.
+          Borrow for the laptop, course, or dev tools you need,
+          pay it back in installments, and build an on-chain
+          reputation that follows you.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4
@@ -137,8 +138,8 @@ export function Home() {
             Deployed Contracts on Stellar Testnet
           </h2>
           <p className="text-text-secondary mb-8 max-w-lg mx-auto">
-            5 Soroban smart contracts live and initialized.
-            Verified on Stellar Expert.
+            All five Soroban contracts are live and initialized
+            on testnet. You can verify each one on Stellar Expert.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             {[

@@ -6,8 +6,8 @@ Targets sponsors and desktop users primarily.
 Shares the same API as StepFi-App (React Native).
 
 ## Stack
-- Vite + React 18 + TypeScript
-- React Router v6 for navigation
+- Vite + React 19 + TypeScript
+- React Router v7 for navigation
 - Zustand for state management
 - TanStack Query for server state
 - Axios for API calls
