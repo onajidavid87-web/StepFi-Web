@@ -262,7 +262,7 @@ const footerColumns = [
       },
       {
         label: 'VERIFICATION.md',
-        href: 'https://github.com/StepFi-app/StepFi-Web/blob/main/VERIFICATION.md',
+        href: '/contracts',
       },
       {
         label: 'v1.0.0 Release',
