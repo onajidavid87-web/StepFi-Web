@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Layout } from '../components/layout/Layout'
 import { Home } from '../pages/Home'
+import { Contracts } from '../pages/Contracts'
 import { Dashboard } from '../pages/Dashboard'
 import { Vendors } from '../pages/Vendors'
 import { VendorRegister } from '../pages/VendorRegister'
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout><Home /></Layout>,
+  },
+  {
+    path: '/contracts',
+    element: <Layout><Contracts /></Layout>,
   },
   {
     path: '/dashboard',

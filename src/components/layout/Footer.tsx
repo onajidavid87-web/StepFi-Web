@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 export function Footer() {
   return (
     <footer className="border-t mt-20"
@@ -37,6 +39,10 @@ export function Footer() {
             className="hover:text-brand transition-colors">
             Docs
           </a>
+          <Link to="/contracts"
+            className="hover:text-brand transition-colors">
+            Contracts
+          </Link>
           <a href="https://contribute.grantfox.xyz/org/StepFi-app"
             target="_blank"
             rel="noopener noreferrer"
