@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { sponsorsService } from '../services/sponsors.service'
 import { useTransaction } from '../hooks/useTransaction'
 import { useWallet } from '../hooks/useWallet'
+import { useToast } from '../hooks/useToast'
 import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
 import { Badge } from '../components/ui/Badge'
@@ -18,6 +19,7 @@ import {
 
 export function Sponsors() {
   const { isConnected } = useWallet()
+  const { toast } = useToast()
   const [shares, setShares] = useState('')
   const [successData, setSuccessData] = useState<{
     hash: string
@@ -44,8 +46,10 @@ export function Sponsors() {
       )
       setSuccessData(result)
       setShares('')
-    } catch {
-      // Error handled by useTransaction and shown in UI
+      toast.success('Withdrawal confirmed successfully.')
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Withdrawal failed.'
+      toast.error(message)
     }
   }
 

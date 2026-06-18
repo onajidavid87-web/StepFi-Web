@@ -11,6 +11,7 @@ import { Spinner } from '../components/ui/Spinner'
 import { VouchRequestCard } from '../components/vouch/VouchRequestCard'
 import { VouchImpactPreview } from '../components/vouch/VouchImpactPreview'
 import { useWallet } from '../hooks/useWallet'
+import { useToast } from '../hooks/useToast'
 import { STELLAR_NETWORK } from '../constants/config'
 import type { VouchRequest } from '../types'
 
@@ -86,6 +87,7 @@ function ConfirmRevokeDialog({
 export function Vouch() {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
+  const { toast } = useToast()
   const { isConnected: walletConnected, connectFreighter } = useWallet()
 
   const [activeTab, setActiveTab] = useState<'requests' | 'active'>('requests')
@@ -110,6 +112,11 @@ export function Vouch() {
       queryClient.invalidateQueries({ queryKey: ['vouch-requests'] })
       queryClient.invalidateQueries({ queryKey: ['my-vouches'] })
       setPreviewRequest(null)
+      toast.success('Vouch submitted successfully.')
+    },
+    onError: (error) => {
+      const message = error instanceof Error ? error.message : 'Failed to submit vouch.'
+      toast.error(message)
     },
   })
 
@@ -118,6 +125,11 @@ export function Vouch() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['my-vouches'] })
       setRevokeTarget(null)
+      toast.success('Vouch revoked successfully.')
+    },
+    onError: (error) => {
+      const message = error instanceof Error ? error.message : 'Failed to revoke vouch.'
+      toast.error(message)
     },
   })
 
@@ -155,7 +167,7 @@ export function Vouch() {
       })
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Transaction failed'
-      alert(message)
+      toast.error(message)
     }
   }
 
