@@ -33,12 +33,10 @@ export function Footer() {
             className="hover:text-brand transition-colors">
             GitHub
           </a>
-          <a href="https://stepfi.vercel.app/docs"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-brand transition-colors">
-            Docs
-          </a>
+            <Link to="/docs"
+              className="hover:text-brand transition-colors">
+              Docs
+            </Link>
           <Link to="/contracts"
             className="hover:text-brand transition-colors">
             Contracts
