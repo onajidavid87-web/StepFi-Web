@@ -1,5 +1,4 @@
-import { launch } from 'chrome-launcher'
-import puppeteer from 'puppeteer-core'
+import puppeteer from 'puppeteer'
 import { createServer } from 'vite'
 import { resolve } from 'path'
 
@@ -28,13 +27,9 @@ async function main() {
 
   console.log(`Preview server running on ${BASE_URL}`)
 
-  const chrome = await launch({
-    chromePath: process.env.CHROME_PATH || undefined,
-    chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu'],
-  })
-
-  const browser = await puppeteer.connect({
-    browserURL: `http://127.0.0.1:${chrome.port}`,
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-gpu'],
   })
 
   const page = await browser.newPage()
@@ -72,8 +67,7 @@ async function main() {
     }
   }
 
-  await browser.disconnect()
-  try { chrome.kill() } catch {}
+  await browser.close()
   try { await server.close() } catch {}
 
   if (totalViolations > 0) {
