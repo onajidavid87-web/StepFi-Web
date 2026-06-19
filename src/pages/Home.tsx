@@ -239,7 +239,7 @@ const footerColumns = [
   {
     title: 'Protocol',
     links: [
-      { label: 'Docs', href: 'https://stepfi.vercel.app/docs' },
+      { label: 'Docs', href: '/docs', internal: true },
       { label: 'Demo', href: 'https://stepfi.vercel.app/demo' },
       { label: 'Playground', href: 'https://stepfi.vercel.app/playground' },
       { label: 'API Docs', href: 'https://stepfi.vercel.app/api' },
@@ -775,18 +775,32 @@ function FooterLinksStrip() {
               {column.title}
             </h3>
             <ul className="space-y-3">
-              {column.links.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-text-muted hover:text-brand transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+              {column.links.map((link) => {
+                if ('internal' in link && link.internal) {
+                  return (
+                    <li key={link.label}>
+                      <Link
+                        to={link.href}
+                        className="text-sm text-text-muted hover:text-brand transition-colors"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  )
+                }
+                return (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-text-muted hover:text-brand transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                )
+              })}
             </ul>
           </motion.div>
         ))}
