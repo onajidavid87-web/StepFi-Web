@@ -47,15 +47,20 @@ function ConfirmRevokeDialog({
   if (!open) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="revoke-dialog-title"
+    >
       <div className="w-full max-w-sm">
         <Card className="space-y-4">
           <div className="flex items-center gap-2">
             <div className="p-2 rounded-xl bg-red-500/10 border border-red-500/20">
-              <Ban size={20} className="text-red-400" />
+              <Ban size={20} className="text-red-400" aria-hidden="true" />
             </div>
             <div>
-              <h3 className="font-display font-bold text-lg text-text-primary">
+              <h3 id="revoke-dialog-title" className="font-display font-bold text-lg text-text-primary">
                 Revoke Vouch
               </h3>
               <p className="text-text-muted text-sm">
@@ -74,7 +79,7 @@ function ConfirmRevokeDialog({
               loading={revoking}
               className="border-red-500/40 text-red-400 hover:bg-red-500/10"
             >
-              <Ban size={14} />
+              <Ban size={14} aria-hidden="true" />
               Revoke
             </Button>
           </div>
@@ -211,11 +216,17 @@ export function Vouch() {
         )}
       </div>
 
-      <div className="flex gap-1 p-1 rounded-xl bg-surface border border-border mb-8 w-fit">
+      <div className="flex gap-1 p-1 rounded-xl bg-surface border border-border mb-8 w-fit"
+        role="tablist" aria-label="Vouch tabs"
+      >
         {tabs.map((tab) => (
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
+            role="tab"
+            aria-selected={activeTab === tab.key}
+            aria-controls={`tabpanel-${tab.key}`}
+            id={`tab-${tab.key}`}
             className={`
               flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all
               ${
@@ -225,7 +236,7 @@ export function Vouch() {
               }
             `}
           >
-            <tab.icon size={16} />
+            <tab.icon size={16} aria-hidden="true" />
             {tab.label}
             {tab.count !== undefined && (
               <span className="px-1.5 py-0.5 rounded-full bg-elevated text-xs text-text-muted font-mono">
@@ -236,7 +247,12 @@ export function Vouch() {
         ))}
       </div>
 
-      {activeTab === 'requests' && (
+      <div
+        role="tabpanel"
+        id="tabpanel-requests"
+        aria-labelledby="tab-requests"
+        hidden={activeTab !== 'requests'}
+      >
         <>
           {requestsQuery.isLoading ? (
             <div className="flex flex-col items-center justify-center py-24 gap-3">
@@ -288,9 +304,14 @@ export function Vouch() {
             </div>
           )}
         </>
-      )}
+      </div>
 
-      {activeTab === 'active' && (
+      <div
+        role="tabpanel"
+        id="tabpanel-active"
+        aria-labelledby="tab-active"
+        hidden={activeTab !== 'active'}
+      >
         <>
           {activeVouchesQuery.isLoading ? (
             <div className="flex flex-col items-center justify-center py-24 gap-3">
@@ -422,7 +443,7 @@ export function Vouch() {
             </div>
           )}
         </>
-      )}
+      </div>
 
       {previewRequest && (
         <VouchImpactPreview
