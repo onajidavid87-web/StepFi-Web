@@ -56,9 +56,9 @@ export function Sponsors() {
   if (!isConnected) {
     return (
       <div className="max-w-7xl mx-auto px-6 py-24 text-center">
-        <h2 className="font-display font-bold text-3xl text-text-primary mb-4">
+        <h1 className="font-display font-bold text-3xl text-text-primary mb-4">
           Connect your wallet to sponsor
-        </h2>
+        </h1>
         <p className="text-text-secondary mb-8">
           You need a Stellar wallet to manage your liquidity pool shares.
         </p>
@@ -144,24 +144,27 @@ export function Sponsors() {
             <h3 className="font-display font-bold text-xl text-text-primary mb-4 flex items-center gap-2">
               Withdraw Funds
             </h3>
-            <form onSubmit={handleWithdraw} className="space-y-4">
+            <form onSubmit={handleWithdraw} className="space-y-4" aria-label="Withdraw funds form">
               <div>
-                <label className="block text-sm text-text-secondary mb-2">
+                <label htmlFor="shares-amount" className="block text-sm text-text-secondary mb-2">
                   Amount of Shares
                 </label>
                 <div className="relative">
                   <input
+                    id="shares-amount"
                     type="number"
                     value={shares}
                     onChange={(e) => setShares(e.target.value)}
                     placeholder="0.00"
                     className="w-full bg-bg border border-border rounded-xl px-4 py-3
                       text-text-primary focus:outline-none focus:border-brand transition-colors"
+                    aria-describedby="shares-hint"
                   />
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted text-sm">
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted text-sm" aria-hidden="true">
                     SHARES
                   </div>
                 </div>
+                <p id="shares-hint" className="text-text-muted text-xs mt-1">Enter the number of pool shares to withdraw.</p>
               </div>
 
               {Number(shares) > 0 && (
