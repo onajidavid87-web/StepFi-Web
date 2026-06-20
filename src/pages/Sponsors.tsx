@@ -7,6 +7,7 @@ import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
 import { Badge } from '../components/ui/Badge'
 import { Spinner } from '../components/ui/Spinner'
+import type { PoolInfo } from '../types'
 import { 
   TrendingUp, 
   Wallet, 
@@ -25,7 +26,7 @@ export function Sponsors() {
     profit: number
   } | null>(null)
 
-  const { data: poolInfo, isLoading: poolLoading } = useQuery({
+  const { data: poolInfo, isLoading: poolLoading } = useQuery<PoolInfo>({
     queryKey: ['poolInfo'],
     queryFn: sponsorsService.getPoolInfo,
     enabled: isConnected
@@ -40,7 +41,7 @@ export function Sponsors() {
     try {
       const result = await execute(
         () => sponsorsService.withdraw(Number(shares)),
-        (signedXdr) => sponsorsService.submitTransaction(signedXdr)
+        (signedXdr: string) => sponsorsService.submitTransaction(signedXdr)
       )
       setSuccessData(result)
       setShares('')
